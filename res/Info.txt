@@ -1,0 +1,4 @@
+./api.txt ====>>> file where you paste in you'r bot's API ONLY!!!
+./last_downloading.txt ========>>>>>>> file that is used by script
+
+./audios/ =====>>> directory with output files comming
