@@ -5,16 +5,17 @@ from aiogram.utils import executor
 from glob import glob
 import os
 
+#Initializing Variables
 current_path = os.getcwd()
-token = open(current_path+"\\res\\api.txt", "r").readline()
+token = open(current_path+"\\res\\api.txt", "r").readline() #geting directory of TeleBot API
 bot = Bot(str(token))
 dp = Dispatcher(bot)
-sending:str = ""
+sending:str = "" #Reserving the memory for future
 
 async def onStartInit(_):
     print("Bot is on-line!")
 
-list_mp3 = glob(current_path + "current_path + '\\*")
+list_mp3 = glob(current_path + "\\res\\audios\\*")
 
 @dp.message_handler(commands=["start"])
 async def onStart(message:types.Message):
@@ -23,7 +24,7 @@ async def onStart(message:types.Message):
 
 @dp.message_handler(commands=['random'])
 async def Random(message:types.Message):
-    await  bot.send_audio(message.from_user.id, audio=open(random.choice(list_mp3), "rb"))
+    await  bot.send_audio(message.from_user.id, audio=open(random.choice(list_mp3), "rb")) #Sending random file from Dir('Project_dir//res//audios//')
 
 @dp.message_handler(commands=["send"])
 async def Sending_downloaded(message:types.Message):
@@ -31,6 +32,12 @@ async def Sending_downloaded(message:types.Message):
         string_name = fr.read(100)
         fr.close()
     await bot.send_audio(message.from_user.id, audio=open(current_path+"\\res\\audios\\"+string_name+".mp3", "rb"))
+
+    
+#Send the link to bot
+#IMPORTANT!!!
+#the link must have World-Wide-Web prefix ( /www. )
+#to find out if link is trully right.
 
 @dp.message_handler(lambda message: True)
 async def checkingAllMsgs(message:types.Message):
@@ -42,15 +49,16 @@ async def checkingAllMsgs(message:types.Message):
         stream = yt.streams.filter(only_audio=True).first()
         stream.download(output_path=current_path+"\\res\\audios\\", filename=name+".mp3")
         print(name)
+        #Most optimized way to save last download I've developed
         with open(current_path + "\\res\\last_downloading.txt", "w") as fw:
-            fw.write(name)
+            fw.write(name) #Saving name in file saved in 'Project_dir//res//last_downloading.txt'
             fw.close()
         print("Downloading is DONE!!!")
         await bot.send_message(message.from_user.id, "Downloading is Well DONE!")
         print("Proceeding to sending")
         await bot.send_message(message.from_user.id, "Proceeding to Sending")
         try:
-            await Sending_downloaded(message)
+            await Sending_downloaded(message) #If You are lucky, bot will send audiofile to)
         except:
             print("Didn't Send :(")
             await bot.send_message(message.from_user.id, "I didn't Send it:(")
@@ -58,8 +66,10 @@ async def checkingAllMsgs(message:types.Message):
     else:
         await bot.send_message(message.from_user.id, "This message isn't link")
 
+#The way to stop the bot
 @dp.message_handler(commands=["stop"])
 def Stop():
     exit()
 
+# Starting Bot
 executor.start_polling(dp, skip_updates=True, on_startup=onStartInit)
