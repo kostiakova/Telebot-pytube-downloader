@@ -57,18 +57,6 @@ async def checkingAllMsgs(message:types.Message):
 
     else:
         await bot.send_message(message.from_user.id, "This message isn't link")
-    # link = message.text
-    # yt = pytube.YouTube(link)
-    # name = yt.title
-    # stream = yt.streams.filter(only_audio=True).first()
-    # stream.download(output_path="/home/kostinus/Videos",
-    #                 filename=name+".mp3")
-    # print(name)
-    # sending = name
-    # print(sending)
-    # with open("res.txt", "w") as fw:
-    #     fw.write(sending)
-    #     fw.close()
 
 @dp.message_handler(commands=["stop"])
 def Stop():
