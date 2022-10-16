@@ -9,7 +9,7 @@ current_path = os.getcwd()
 token = open(current_path+"\\res\\api.txt", "r").readline()
 bot = Bot(str(token))
 dp = Dispatcher(bot)
-sending = ""
+sending:str = ""
 
 async def onStartInit(_):
     print("Bot is on-line!")
