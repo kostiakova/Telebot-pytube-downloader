@@ -5,7 +5,7 @@ By contributing or distributing this fork You (distributor) must mention kostiak
 If you can, please make your repository with this code.
 
 kostiakova
-https://www.youtube.com/watch?v=CrtTAYtdVvw
+https://github.com/kostiakova/
 
 1) Run command ```git clone https://github.com/kostiakova/telebot-pytube-downloader.git```
 2) Run ```cd telebot-pytube-downloader```
